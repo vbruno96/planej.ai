@@ -1,3 +1,6 @@
+import { router } from "@/router";
+import { RouterProvider } from "react-router-dom";
+
 export function App() {
-  return <h1>Planej.ai</h1>;
+  return <RouterProvider router={router} />;
 }
