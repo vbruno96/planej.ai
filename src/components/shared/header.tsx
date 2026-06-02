@@ -1,8 +1,8 @@
-import { useTheme } from "@/hooks/use-theme";
-import { Clock, Moon, Sun, TrendingUp, Wallet } from "lucide-react";
-import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/shared/button";
 import { Divider } from "@/components/shared/divider";
+import { useTheme } from "@/hooks/use-theme";
+import { Clock, Moon, Sun, TrendingUp, Wallet } from "lucide-react";
+import { useNavigate } from "react-router";
 
 export function Header() {
   const navigate = useNavigate();

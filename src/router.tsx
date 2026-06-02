@@ -1,22 +1,37 @@
 import { RootLayout } from "@/components/layouts/root-layout";
-import { createBrowserRouter } from "react-router-dom";
+import { ErrorPage } from "@/pages/error-page";
 import { SimulationForm } from "@/pages/simulation-form";
+import { SimulationResult } from "@/pages/simulation-result";
+import { createBrowserRouter, type LoaderFunctionArgs } from "react-router";
+import { getAnswersDataByGoalId } from "./utils/simulation";
 
 export const router = createBrowserRouter([
   {
-    element: <RootLayout />,
+    Component: RootLayout,
+    ErrorBoundary: ErrorPage,
     children: [
       {
-        path: "/",
-        element: <SimulationForm />,
+        index: true,
+        Component: SimulationForm,
       },
       {
-        path: "/resultado",
-        element: <h1>Resultado da Simulação</h1>,
+        path: "resultado/:id",
+        Component: SimulationResult,
+        loader: async ({ params }: LoaderFunctionArgs) => {
+          const { id } = params;
+
+          if (!id)
+            throw new Response("The goal id was necessary", {
+              status: 404,
+              statusText: "Goal Not Found",
+            });
+
+          return { goal: getAnswersDataByGoalId(id) };
+        },
       },
       {
-        path: "/historico",
-        element: <h1>Histórico da Simulação</h1>,
+        path: "historico",
+        Component: () => <h1>Histórico da Simulação</h1>,
       },
     ],
   },
