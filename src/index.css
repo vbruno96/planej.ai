@@ -59,4 +59,26 @@
   --color-skeleton-highlight: var(--skeleton-highlight-color);
 
   --shadow-default: 4px 4px 18px 0 rgba(0, 0, 0, 0.2);
+  --animate-overlay-show: overlay-show 150ms cubic-bezier(0.16, 1, 0.3, 1);
+  --animate-content-show: content-show 150ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes overlay-show {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes content-show {
+  from {
+    opacity: 0;
+    transform: scale(0);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
 }

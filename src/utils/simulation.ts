@@ -42,3 +42,20 @@ export function updateGoalWithInsight(goalId: string, updatedGoal: GoalData) {
 
   localStorage.setItem("goals", JSON.stringify(updated));
 }
+
+export function getGoalsStored(): GoalData[] {
+  const storage = localStorage.getItem("goals");
+
+  const goals = storage ? (JSON.parse(storage) as GoalData[]) : [];
+
+  return goals.reverse();
+}
+
+export function deleteGoalById(goalId: string): GoalData[] {
+  const goals = getGoalsStored();
+
+  const updateGoals = goals.filter((goal) => goal.id !== goalId);
+  localStorage.setItem("goals", JSON.stringify(updateGoals));
+
+  return updateGoals.reverse();
+}

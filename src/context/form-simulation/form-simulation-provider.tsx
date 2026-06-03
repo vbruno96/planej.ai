@@ -33,7 +33,11 @@ export function ForSimulationProvider({ children }: PropsWithChildren) {
   function saveFormData(data: AnswerData): string {
     const goalId = crypto.randomUUID();
 
-    const toStore = { ...data, id: goalId };
+    const toStore = {
+      ...data,
+      id: goalId,
+      createdAt: new Date().toISOString(),
+    };
     const storage = localStorage.getItem("goals");
     const goalStored = storage ? (JSON.parse(storage) as GoalData[]) : [];
 

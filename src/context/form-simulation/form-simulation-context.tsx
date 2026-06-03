@@ -6,7 +6,11 @@ export type AnswerData = Record<
   (typeof simulationFormSteps)[number]["id"],
   string
 >;
-export type GoalData = AnswerData & { id: string; insight?: InsightData };
+export type GoalData = AnswerData & {
+  id: string;
+  insight?: InsightData;
+  createdAt: string;
+};
 
 interface FormSimulationContextValue {
   currentStepIndex: number;

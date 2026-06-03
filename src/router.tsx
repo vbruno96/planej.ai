@@ -4,7 +4,11 @@ import { History } from "@/pages/history";
 import { SimulationForm } from "@/pages/simulation-form";
 import { SimulationResult } from "@/pages/simulation-result";
 import { createBrowserRouter, type LoaderFunctionArgs } from "react-router";
-import { getAnswersDataByGoalId } from "./utils/simulation";
+import {
+  deleteGoalById,
+  getAnswersDataByGoalId,
+  getGoalsStored,
+} from "./utils/simulation";
 
 export const router = createBrowserRouter([
   {
@@ -33,6 +37,22 @@ export const router = createBrowserRouter([
       {
         path: "historico",
         Component: History,
+        loader: async () => {
+          const simulations = getGoalsStored();
+
+          return { simulations };
+        },
+        action: async ({ request }) => {
+          const actionData = await request.formData();
+          const simulationId = actionData.get("simulationId");
+          if (!simulationId)
+            throw new Response("No ID was sent", {
+              status: 400,
+              statusText: "No ID",
+            });
+          const updateGoals = deleteGoalById(simulationId.toString());
+          return updateGoals;
+        },
       },
     ],
   },
