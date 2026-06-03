@@ -1,5 +1,6 @@
 import { RootLayout } from "@/components/layouts/root-layout";
 import { ErrorPage } from "@/pages/error-page";
+import { History } from "@/pages/history";
 import { SimulationForm } from "@/pages/simulation-form";
 import { SimulationResult } from "@/pages/simulation-result";
 import { createBrowserRouter, type LoaderFunctionArgs } from "react-router";
@@ -31,7 +32,7 @@ export const router = createBrowserRouter([
       },
       {
         path: "historico",
-        Component: () => <h1>Histórico da Simulação</h1>,
+        Component: History,
       },
     ],
   },

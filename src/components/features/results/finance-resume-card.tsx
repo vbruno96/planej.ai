@@ -13,7 +13,7 @@ interface FinanceResumeCardProps {
 
 export function FinanceResumeCard({ title, resume }: FinanceResumeCardProps) {
   return (
-    <div className="bg-card rounded-2xl p-6 shadow-[4px_4px_18px_0_rgba(0,0,0,.2)]">
+    <div className="bg-card shadow-default rounded-2xl p-6">
       <h3 className="text-foreground text-3xl font-semibold sm:text-4xl">
         {title}
       </h3>

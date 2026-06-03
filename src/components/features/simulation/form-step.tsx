@@ -52,7 +52,7 @@ export function FormStep({
   }
 
   return (
-    <div className="bg-card rounded-2xl p-6 shadow-[4px_4px_18px_0_rgba(0,0,0,.2)] sm:p-8">
+    <div className="bg-card shadow-default rounded-2xl p-6 sm:p-8">
       <div className="bg-primary mb-4 flex size-15 items-center justify-center rounded-xl">
         <Icon size={32} strokeWidth={1.5} className="text-primary-foreground" />
       </div>

@@ -14,7 +14,7 @@ export function AIInsightCard({ goalId }: AIInsightCard) {
   const { insight, isLoading, error, fetchInsight } = useInsight(goalId);
 
   return (
-    <div className="bg-card text-foreground space-y-2.5 rounded-2xl p-6 shadow-[4px_4px_18px_0_rgba(0,0,0,.2)] max-sm:order-2 sm:col-span-2">
+    <div className="bg-card text-foreground shadow-default space-y-2.5 rounded-2xl p-6 max-sm:order-2 sm:col-span-2">
       <p className="text-primary text-sm font-semibold">
         <span className="mr-1.5">✨</span> Insight Financeiro Personalizado
       </p>

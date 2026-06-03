@@ -1,5 +1,5 @@
-import type { InputHTMLAttributes } from "react";
 import { Divider } from "@/components/shared/divider";
+import type { InputHTMLAttributes } from "react";
 
 export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   prefix?: string;
@@ -8,7 +8,7 @@ export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
 
 export function Input({ prefix, suffix, ...props }: InputProps) {
   return (
-    <div className="bg-input flex items-center rounded-2xl p-4 shadow-[4px_4px_18px_0_rgba(0,0,0,.2)]">
+    <div className="bg-input shadow-default flex items-center rounded-2xl p-4">
       {prefix && (
         <>
           <span className="text-muted-foreground text-sm font-medium">

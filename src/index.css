@@ -57,4 +57,6 @@
   --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
   --color-skeleton-base: var(--skeleton-base-color);
   --color-skeleton-highlight: var(--skeleton-highlight-color);
+
+  --shadow-default: 4px 4px 18px 0 rgba(0, 0, 0, 0.2);
 }

@@ -10,7 +10,7 @@ interface CardProps {
 }
 
 const cardClass = tv({
-  base: "rounded-2xl p-6 shadow-[4px_4px_18px_0_rgba(0,0,0,.2)]",
+  base: "rounded-2xl p-6 shadow-default",
   variants: {
     variant: {
       default: "bg-card",
