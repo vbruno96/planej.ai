@@ -1,6 +1,6 @@
 import { Button } from "@/components/shared/button";
 import { Divider } from "@/components/shared/divider";
-import type { GoalData } from "@/context/form-simulation/form-simulation-context";
+import type { SimulationData } from "@/context/form-simulation/form-simulation-context";
 import { formatCurrency } from "@/utils/currency";
 import { calcMonthlySavings } from "@/utils/simulation";
 import * as Dialog from "@radix-ui/react-dialog";
@@ -9,7 +9,7 @@ import { useCallback } from "react";
 import { useNavigate, useSubmit } from "react-router";
 
 interface SimulationItemProps {
-  simulation: GoalData;
+  simulation: SimulationData;
 }
 
 export function SimulationItem({ simulation }: SimulationItemProps) {

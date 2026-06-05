@@ -1,7 +1,7 @@
 import { parseCurrency } from "@/utils/currency";
 import { calcMonthlySavings } from "@/utils/simulation";
 
-import type { AnswerData } from "@/context/form-simulation/form-simulation-context";
+import type { StepData } from "@/context/form-simulation/form-simulation-context";
 
 const RESPONSE_SCHEMA = `{
   "feasibility": {
@@ -25,7 +25,7 @@ const RESPONSE_SCHEMA = `{
   }
 }`;
 
-export function buildAIPrompt(simulation: AnswerData) {
+export function buildAIPrompt(simulation: StepData) {
   const { income, expenses, debts, goalName, goalAmount, goalDeadline } =
     simulation;
 

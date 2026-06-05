@@ -15,24 +15,24 @@ import {
 import { useLoaderData } from "react-router";
 
 export function SimulationResult() {
-  const { goal } = useLoaderData();
+  const { simulation } = useLoaderData();
   const resume = [
     {
       icon: Wallet,
       title: "Renda Mensal",
-      value: goal.income,
+      value: simulation.income,
       subtitle: "Renda total bruta do mês",
     },
     {
       icon: CreditCard,
       title: "Custos Fixos de Vida",
-      value: goal.expenses,
+      value: simulation.expenses,
       subtitle: "Gastos essenciais pro mês",
     },
     {
       icon: Landmark,
       title: "Dívidas / Parcelas",
-      value: goal.debts,
+      value: simulation.debts,
       subtitle: "Valor comprometido em parcelas/depósito",
     },
   ];
@@ -46,25 +46,25 @@ export function SimulationResult() {
         <Card
           icon={Goal}
           label="Custo da Meta"
-          value={goal.goalAmount}
-          subtitle={goal.goalName}
+          value={simulation.goalAmount}
+          subtitle={simulation.goalName}
         />
         <Card
           icon={CalendarClock}
           label="Prazo"
-          value={`${goal.goalDeadline} meses`}
+          value={`${simulation.goalDeadline} meses`}
           subtitle="Prazo para atingir a meta"
         />
         <Card
           icon={PiggyBank}
           label="Economia Mensal"
-          value={formatCurrency(calcMonthlySavings(goal))}
+          value={formatCurrency(calcMonthlySavings(simulation))}
           subtitle="Economia mensal necessária"
           variant="primary"
         />
       </section>
       <section className="grid gap-6 lg:grid-cols-3">
-        <AIInsightCard goalId={goal.id} />
+        <AIInsightCard simulationId={simulation.id} />
         <FinanceResumeCard title="Resumo das suas finanças" resume={resume} />
       </section>
     </main>

@@ -29,18 +29,16 @@ export function FormStep({
     handleNextStep: onNext,
     handlePrevStep: onBack,
     isFirstStep,
-    answerData,
+    stepData,
     currentStepIndex,
   } = useFormSimulation();
   const [inputValue, setInputValue] = useState(() => {
     if (
-      !Object.keys(answerData).includes(
-        simulationFormSteps[currentStepIndex].id
-      )
+      !Object.keys(stepData).includes(simulationFormSteps[currentStepIndex].id)
     )
       return "";
 
-    return answerData[simulationFormSteps[currentStepIndex].id];
+    return stepData[simulationFormSteps[currentStepIndex].id];
   });
 
   function handleSubmit(event: SyntheticEvent<HTMLFormElement>) {

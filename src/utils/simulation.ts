@@ -1,10 +1,10 @@
 import type {
-  AnswerData,
-  GoalData,
+  SimulationData,
+  StepData,
 } from "@/context/form-simulation/form-simulation-context";
 import { parseCurrency } from "@/utils/currency";
 
-export function calcMonthlySavings(data: AnswerData) {
+export function calcMonthlySavings(data: StepData) {
   return (
     parseCurrency(data.income) -
     parseCurrency(data.expenses) -
@@ -12,50 +12,59 @@ export function calcMonthlySavings(data: AnswerData) {
   );
 }
 
-export function getAnswersDataByGoalId(goalId: string): GoalData {
-  const storedGoals = localStorage.getItem("goals");
-  if (!storedGoals)
-    throw new Response("Goals not found", {
+export function getSimulationDataById(simulationId: string): SimulationData {
+  const storedSimulations = localStorage.getItem("simulations");
+  if (!storedSimulations)
+    throw new Response("Simulations not found", {
       status: 404,
-      statusText: "Goals Not Found",
+      statusText: "Simulations Not Found",
     });
 
-  const goals = JSON.parse(storedGoals) as GoalData[];
-  const [searchGoal] = goals.filter((goal) => goal.id === goalId);
-
-  if (!searchGoal)
-    throw new Response("The goal id informed not exits", {
-      status: 404,
-      statusText: "Goal Not Found",
-    });
-
-  return searchGoal;
-}
-
-export function updateGoalWithInsight(goalId: string, updatedGoal: GoalData) {
-  const storage = localStorage.getItem("goals");
-  const storedGoals = storage ? (JSON.parse(storage) as GoalData[]) : [];
-
-  const updated = storedGoals.map((goal) =>
-    goal.id === goalId ? { ...updatedGoal } : goal
+  const simulations = JSON.parse(storedSimulations) as SimulationData[];
+  const [searchSimulation] = simulations.filter(
+    (simulation) => simulation.id === simulationId
   );
 
-  localStorage.setItem("goals", JSON.stringify(updated));
+  if (!searchSimulation)
+    throw new Response("The simulation id informed not exits", {
+      status: 404,
+      statusText: "Simulation Not Found",
+    });
+
+  return searchSimulation;
 }
 
-export function getGoalsStored(): GoalData[] {
-  const storage = localStorage.getItem("goals");
+export function updateSimulation(
+  simulationId: string,
+  updatedSimulation: SimulationData
+) {
+  const storage = localStorage.getItem("simulations");
+  const storedSimulations = storage
+    ? (JSON.parse(storage) as SimulationData[])
+    : [];
 
-  const goals = storage ? (JSON.parse(storage) as GoalData[]) : [];
+  const updated = storedSimulations.map((simulation) =>
+    simulation.id === simulationId ? { ...updatedSimulation } : simulation
+  );
 
-  return goals.reverse();
+  localStorage.setItem("simulations", JSON.stringify(updated));
 }
 
-export function deleteGoalById(goalId: string): GoalData[] {
-  const goals = getGoalsStored();
+export function getSimulationsStored(): SimulationData[] {
+  const storage = localStorage.getItem("simulations");
 
-  const updateGoals = goals.filter((goal) => goal.id !== goalId);
-  localStorage.setItem("goals", JSON.stringify(updateGoals));
+  const simulations = storage ? (JSON.parse(storage) as SimulationData[]) : [];
 
-  return updateGoals.reverse();
+  return simulations.reverse();
+}
+
+export function deleteSimulationById(simulationId: string): SimulationData[] {
+  const simulations = getSimulationsStored();
+
+  const updateSimulations = simulations.filter(
+    (simulation) => simulation.id !== simulationId
+  );
+  localStorage.setItem("simulations", JSON.stringify(updateSimulations));
+
+  return updateSimulations.reverse();
 }

@@ -5,9 +5,9 @@ import { SimulationForm } from "@/pages/simulation-form";
 import { SimulationResult } from "@/pages/simulation-result";
 import { createBrowserRouter, type LoaderFunctionArgs } from "react-router";
 import {
-  deleteGoalById,
-  getAnswersDataByGoalId,
-  getGoalsStored,
+  deleteSimulationById,
+  getSimulationDataById,
+  getSimulationsStored,
 } from "./utils/simulation";
 
 export const router = createBrowserRouter([
@@ -26,19 +26,19 @@ export const router = createBrowserRouter([
           const { id } = params;
 
           if (!id)
-            throw new Response("The goal id was necessary", {
+            throw new Response("The simulation id was necessary", {
               status: 404,
-              statusText: "Goal Not Found",
+              statusText: "Simulation Not Found",
             });
 
-          return { goal: getAnswersDataByGoalId(id) };
+          return { simulation: getSimulationDataById(id) };
         },
       },
       {
         path: "historico",
         Component: History,
         loader: async () => {
-          const simulations = getGoalsStored();
+          const simulations = getSimulationsStored();
 
           return { simulations };
         },
@@ -50,8 +50,10 @@ export const router = createBrowserRouter([
               status: 400,
               statusText: "No ID",
             });
-          const updateGoals = deleteGoalById(simulationId.toString());
-          return updateGoals;
+          const updateSimulations = deleteSimulationById(
+            simulationId.toString()
+          );
+          return updateSimulations;
         },
       },
     ],

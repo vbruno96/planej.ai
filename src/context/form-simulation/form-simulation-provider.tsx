@@ -1,7 +1,7 @@
 import {
   FormSimulationContext,
-  type AnswerData,
-  type GoalData,
+  type SimulationData,
+  type StepData,
 } from "@/context/form-simulation/form-simulation-context";
 import { simulationFormSteps } from "@/data/simulation";
 import { useState, type PropsWithChildren } from "react";
@@ -9,17 +9,17 @@ import { useNavigate } from "react-router";
 
 export function ForSimulationProvider({ children }: PropsWithChildren) {
   const [currentStepIndex, setCurrentStepIndex] = useState(0);
-  const [answerData, setAnswerData] = useState({} as AnswerData);
+  const [stepData, setStepData] = useState({} as StepData);
 
   const totalSteps = simulationFormSteps.length;
   const navigate = useNavigate();
 
   function handleNextStep(value: string) {
     const answer = {
-      ...answerData,
+      ...stepData,
       [simulationFormSteps[currentStepIndex].id]: value,
     };
-    setAnswerData(answer);
+    setStepData(answer);
 
     if (currentStepIndex + 1 > totalSteps - 1) {
       const id = saveFormData(answer);
@@ -30,19 +30,22 @@ export function ForSimulationProvider({ children }: PropsWithChildren) {
     setCurrentStepIndex((prevState) => prevState + 1);
   }
 
-  function saveFormData(data: AnswerData): string {
-    const goalId = crypto.randomUUID();
+  function saveFormData(data: StepData): string {
+    const simulationId = crypto.randomUUID();
 
     const toStore = {
       ...data,
-      id: goalId,
+      id: simulationId,
       createdAt: new Date().toISOString(),
     };
-    const storage = localStorage.getItem("goals");
-    const goalStored = storage ? (JSON.parse(storage) as GoalData[]) : [];
+    const storage = localStorage.getItem("simulations");
+    const goalStored = storage ? (JSON.parse(storage) as SimulationData[]) : [];
 
-    localStorage.setItem("goals", JSON.stringify([...goalStored, toStore]));
-    return goalId;
+    localStorage.setItem(
+      "simulations",
+      JSON.stringify([...goalStored, toStore])
+    );
+    return simulationId;
   }
 
   function handlePrevStep() {
@@ -60,7 +63,7 @@ export function ForSimulationProvider({ children }: PropsWithChildren) {
   return (
     <FormSimulationContext.Provider
       value={{
-        answerData,
+        stepData,
         currentStepIndex,
         handleNextStep,
         handlePrevStep,

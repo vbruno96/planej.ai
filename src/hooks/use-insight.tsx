@@ -1,36 +1,36 @@
-import type { GoalData } from "@/context/form-simulation/form-simulation-context";
+import type { SimulationData } from "@/context/form-simulation/form-simulation-context";
 import { buildAIPrompt } from "@/data/aiPrompt";
 import { getInsight, type InsightData } from "@/services/aiService";
-import {
-  getAnswersDataByGoalId,
-  updateGoalWithInsight,
-} from "@/utils/simulation";
+import { getSimulationDataById, updateSimulation } from "@/utils/simulation";
 import { useCallback, useEffect, useRef, useState } from "react";
 
 export const useInsight = (id: string) => {
   const isRequestPending = useRef(false);
   const [insight, setInsight] = useState<InsightData | null>(() => {
-    const goal = getAnswersDataByGoalId(id);
+    const simulation = getSimulationDataById(id);
 
-    if (!goal.insight) return null;
+    if (!simulation.insight) return null;
 
-    return goal.insight;
+    return simulation.insight;
   });
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const fetchInsight = useCallback(async (goalId: string) => {
-    const goal = getAnswersDataByGoalId(goalId);
+  const fetchInsight = useCallback(async (simulationId: string) => {
+    const simulation = getSimulationDataById(simulationId);
     isRequestPending.current = true;
     setIsLoading(true);
     setError(null);
 
     try {
-      const prompt = buildAIPrompt(goal);
+      const prompt = buildAIPrompt(simulation);
       const data = await getInsight(prompt);
       setInsight(data);
 
-      updateGoalWithInsight(goalId, { ...goal, insight: data } as GoalData);
+      updateSimulation(simulationId, {
+        ...simulation,
+        insight: data,
+      } as SimulationData);
     } catch {
       setError("Fail to get insight. Try again");
     } finally {

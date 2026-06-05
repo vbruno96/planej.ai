@@ -2,11 +2,11 @@ import type { simulationFormSteps } from "@/data/simulation";
 import type { InsightData } from "@/services/aiService";
 import { createContext } from "react";
 
-export type AnswerData = Record<
+export type StepData = Record<
   (typeof simulationFormSteps)[number]["id"],
   string
 >;
-export type GoalData = AnswerData & {
+export type SimulationData = StepData & {
   id: string;
   insight?: InsightData;
   createdAt: string;
@@ -18,7 +18,7 @@ interface FormSimulationContextValue {
   handlePrevStep: () => void;
   isFirstStep: () => boolean;
   totalSteps: number;
-  answerData: AnswerData;
+  stepData: StepData;
 }
 
 export const FormSimulationContext = createContext<

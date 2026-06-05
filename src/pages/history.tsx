@@ -1,6 +1,6 @@
 import { SimulationItem } from "@/components/features/history/simulation-item";
 import { Hero } from "@/components/shared/hero";
-import type { GoalData } from "@/context/form-simulation/form-simulation-context";
+import type { SimulationData } from "@/context/form-simulation/form-simulation-context";
 import { Link, useLoaderData } from "react-router";
 
 export function History() {
@@ -13,7 +13,7 @@ export function History() {
         subtitle="Acompanhe o histórico de seus planos financeiros."
       />
       {simulations.length > 0 ? (
-        simulations.map((simulation: GoalData) => (
+        simulations.map((simulation: SimulationData) => (
           <SimulationItem key={simulation.id} simulation={simulation} />
         ))
       ) : (
