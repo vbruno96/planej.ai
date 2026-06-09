@@ -9,7 +9,7 @@ interface ErrorProps {
 
 export function Error({ simulationId, message, onRetry }: ErrorProps) {
   return (
-    <div>
+    <div className="space-y-5">
       <p className="tex-sm text-red-500">⚠️ {message}</p>
       <Button
         variant="primary"

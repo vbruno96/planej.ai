@@ -31,7 +31,8 @@ export const useInsight = (id: string) => {
         ...simulation,
         insight: data,
       } as SimulationData);
-    } catch {
+    } catch (error) {
+      console.error(error);
       setError("Fail to get insight. Try again");
     } finally {
       isRequestPending.current = true;

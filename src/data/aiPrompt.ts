@@ -1,7 +1,10 @@
 import { parseCurrency } from "@/utils/currency";
 import { calcMonthlySavings } from "@/utils/simulation";
 
-import type { StepData } from "@/context/form-simulation/form-simulation-context";
+import type {
+  SimulationData,
+  StepData,
+} from "@/context/form-simulation/form-simulation-context";
 
 const RESPONSE_SCHEMA = `{
   "feasibility": {
@@ -63,4 +66,43 @@ export function buildAIPrompt(simulation: StepData) {
       - "viable": saldo após reserva para a meta é maior ou igual a 0
       - "needs_adjustment": saldo negativo de até 20% do valor da economia mensal necessária
       - "unfeasible": saldo negativo superior a 20% do valor da economia mensal necessária`;
+}
+
+export function buildAIQuestionContext(
+  simulation: SimulationData,
+  question: string
+) {
+  const { chat, insight, ...rest } = simulation;
+  const contents = [
+    {
+      role: "user",
+      parts: [{ text: buildAIPrompt(rest) }],
+    },
+    {
+      role: "model",
+      parts: [{ text: JSON.stringify(insight) }],
+    },
+  ];
+
+  chat?.forEach((message) =>
+    contents.push({
+      role: message.role,
+      parts: [{ text: message.text }],
+    })
+  );
+
+  contents.push({
+    role: "user",
+    parts: [
+      {
+        text: `${question}\nRetorne APENAS um TEXTO PURO, sem nenhum tipo de formatação ou blocos de código`,
+      },
+    ],
+  });
+
+  const payload = {
+    contents,
+  };
+
+  return payload;
 }

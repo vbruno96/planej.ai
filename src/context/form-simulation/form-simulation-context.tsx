@@ -6,9 +6,14 @@ export type StepData = Record<
   (typeof simulationFormSteps)[number]["id"],
   string
 >;
+
 export type SimulationData = StepData & {
   id: string;
   insight?: InsightData;
+  chat?: {
+    role: "user" | "model";
+    text: string;
+  }[];
   createdAt: string;
 };
 
